@@ -100,7 +100,7 @@ module ActiveRecord
       hijack_method :execute, :select_rows, :exec_query
       send_to_all :connect, :disconnect!, :reconnect!, :verify!, :clear_cache!, :reset!
 
-      SQL_MASTER_MATCHERS           = [/^select.+for update$/i, /select.+lock in share mode$/i].map(&:freeze).freeze
+      SQL_MASTER_MATCHERS           = [/^select.+for update$/i, /select.+lock in share mode$/i, /^select.+pg_try_advisory.+/i, /^select.+pg_advisory.+/i].map(&:freeze).freeze
       SQL_SLAVE_MATCHERS            = [/^select\s/i].map(&:freeze).freeze
       SQL_ALL_MATCHERS              = [/^set\s/i].map(&:freeze).freeze
       SQL_SKIP_STICKINESS_MATCHERS  = [/^show\s([\w]+\s)?(field|table|database|schema|view|index)(es|s)?/i, /^(set|describe|explain|pragma)\s/i].map(&:freeze).freeze
